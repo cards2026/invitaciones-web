@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis XV - Kary</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+	<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+	<style>
+	/*==================================================
+	=                PALETA DE COLORES                 =
+	==================================================*/
+
+	:root{
+		--sage:#7A8B81;
+		--sage-dark:#5E7168;
+		--sage-light:#E8ECE9;
+
+		 --gold:#B89A62;
+		--gold-light:#E8D5A8;
+
+		--cream:#FAF8F4;
+		--white:#FFFFFF;
+
+		--text:#39433E;
+		--text-light:#6B736F;
+
+		--shadow:0 15px 40px rgba(0,0,0,.10);
+		--shadow-hover:0 20px 45px rgba(0,0,0,.16);
+
+		--radius:28px;
+	}
+
+
+	/*==================================================
+	=                    RESET                         =
+	==================================================*/
+
+	*{
+		margin:0;
+		padding:0;
+		box-sizing:border-box;
+	}
+
+	html{
+		scroll-behavior:smooth;
+	}
+
+	body{
+		font-family:'Montserrat',sans-serif;
+		color:var(--text);
+		overflow-x:hidden;
+		background:
+			linear-gradient(
+			180deg,
+			#fcfbf8,
+			#f5f3ef);
+	}
+
+	.halo{
+		position:absolute;
+		width:500px;
+		height:500px;
+		border-radius:50%;
+		background:
+		radial-gradient(
+		rgba(200,169,106,.12),
+		transparent 70%);
+	}
+
+
+	/*==================================================
+	=             FONDO BOTÁNICO                       =
+	==================================================*/
+
+	.botanical-bg{
+		position:relative;
+		background:
+			radial-gradient(circle at 15% 15%,
+			rgba(124,143,132,.08),
+			transparent 28%),
+			radial-gradient(circle at 85% 75%,
+			rgba(200,169,106,.07),
+			transparent 30%),
+		linear-gradient(180deg,#FCFBF8,#F1F4F1);
+
+	}
+
+
+	/*==================================================
+	=                HERO PRINCIPAL                    =
+	==================================================*/
+
+	.hero-content{
+		position:relative;
+		z-index:5;
+		text-align:center;
+		animation:fadeIn 1.5s ease;
+	}
+
+	@keyframes fadeIn{
+		from{
+			opacity:0;
+			transform:translateY(20px);
+		}
+		to{
+			opacity:1;
+			transform:translateY(0);
+		}
+	}
+
+	.fa-angle-down{
+		animation:floatArrow 2s infinite;
+	}
+
+	@keyframes floatArrow{
+		0%,100%{
+			transform:translateY(0);
+		}
+		50%{
+			transform:translateY(10px);
+		}
+	}
+
+	/*==================================================
+	=                 TÍTULOS                          =
+	==================================================*/
+	
+	.nombre-xv {
+		font-family:'Cormorant Garamond',serif;
+		font-size: 4rem;
+		color: #b08a45;
+		text-shadow:
+			0 3px 8px rgba(0,0,0,.15);
+	}
+
+	.main-title{
+		font-family:'Cormorant Garamond',serif;
+		font-size:4rem;
+		color:var(--sage-dark);
+		letter-spacing:3px;
+		font-weight:700;
+		margin-bottom:.5rem;
+	}
+
+	.section-title{
+		position:relative;
+		display:inline-block;
+		margin-bottom:2.8rem;
+		font-family:'Cormorant Garamond',serif;
+		font-size:2.6rem;
+		color:var(--sage-dark);
+	}
+
+	.section-title::after{
+		content:"";
+		position:absolute;
+		bottom:-12px;
+		left:50%;
+		transform:translateX(-50%);
+		width:90px;
+		height:3px;
+		border-radius:50px;
+		background:
+			linear-gradient(to right,
+			transparent,
+			var(--gold),
+			transparent);
+	}
+	
+	.invitacion-texto{
+		font-size:1.25rem;
+		line-height:2;
+		color:var(--text);
+		font-weight:300;
+		max-width:750px;
+		margin:auto;
+	}
+	
+	.frase-corta{
+		font-family:'Cormorant Garamond', serif;
+		font-size:1.7rem;
+		color:var(--sage-dark);
+		text-align:center;
+		font-style:italic;
+		margin-bottom:30px;
+	}
+	
+		
+	.frase-principal{
+		font-family:'Cormorant Garamond',serif;
+		font-size:1.4rem;
+		font-style:italic;
+		color:var(--gold);
+		margin-top:10px;
+		letter-spacing:1px;
+	}
+
+
+	/*==================================================
+	=                TARJETA PRINCIPAL                 =
+	==================================================*/
+
+	.invitacion-card{
+		position:relative;
+		overflow:hidden;
+		background:#fff;
+		border-radius:var(--radius);
+		padding:45px;
+		box-shadow:0 8px 25px rgba(0,0,0,.05);
+		border:1px solid rgba(122,139,129,.15);
+		backdrop-filter:blur(8px);
+	}
+
+	.invitacion-card::before{
+		content:"";
+		position:absolute;
+		inset:0;
+		background:
+			linear-gradient(135deg,
+			rgba(124,143,132,.08),
+			transparent 40%,
+			rgba(200,169,106,.10));
+		pointer-events:none;
+	}
+	
+	.evento-card:hover,
+	.invitacion-card:hover{
+		transform:translateY(-10px);
+		box-shadow:var(--shadow-hover);
+		border-color:var(--gold);
+	}
+
+	/*==================================================
+	=             TARJETAS DE EVENTOS                  =
+	==================================================*/
+
+	.evento-card{
+		position:relative;
+		overflow:hidden;
+		background:var(--white);
+		border-radius:24px;
+		padding:35px 30px;
+		border:1px solid rgba(124,143,132,.18);
+		box-shadow:0 12px 30px rgba(0,0,0,.08);
+		transition:.35s;
+
+	}
+
+	.evento-card::before{
+		content:"";
+		position:absolute;
+		top:0;
+		left:0;
+		width:100%;
+		height:5px;
+		background:linear-gradient(
+			90deg,
+			var(--sage),
+			var(--gold),
+			var(--sage));
+
+	}
+
+	.evento-icon{
+		font-size:2.6rem;
+		color:var(--gold);
+		margin-bottom:22px;
+		text-align:center;
+	}
+
+	.evento-title{
+		font-family:'Cormorant Garamond',serif;
+		color:var(--sage-dark);
+		font-size:1.7rem;
+		text-align:center;
+		margin-bottom:25px;
+	}
+
+	.evento-details{
+		color:var(--text);
+		text-align:center;
+	}
+
+	.evento-details p{
+		display:flex;
+		text-align:center;
+		align-items:center;
+		margin-bottom:12px;
+	}
+
+	.evento-details i{
+		color:var(--gold);
+		width:26px;
+		margin-right:10px;
+	}
+	
+	.evento-fecha{
+		font-family:'Cormorant Garamond', serif;
+		font-size:1.5rem;
+		color:var(--sage-dark);
+		margin-bottom:5px;
+	}
+
+	.evento-hora{
+		letter-spacing:3px;
+		color:#8E8D9E;
+	}
+
+
+	/*==================================================
+	=                 BOTONES                          =
+	==================================================*/
+
+	.btn-xv{
+		background:linear-gradient(
+			135deg,
+			var(--sage),
+			var(--sage-dark));
+		color:white;
+		border:none;
+		border-radius:50px;
+		padding:14px 34px;
+		font-weight:600;
+		letter-spacing:.5px;
+		transition:.35s;
+		box-shadow: 0 10px 25px rgba(124,143,132,.25);
+
+	}
+
+	.btn-xv:hover{
+		background:linear-gradient(
+			135deg,
+			var(--gold),
+			#b6924e);
+
+		color:white;
+		transform:translateY(-3px);
+	}
+
+
+	/*==================================================
+	=                 CARRUSEL                         =
+	==================================================*/
+
+	#photoCarousel{
+		max-width:900px;
+		margin:auto;
+		border-radius:28px;
+		overflow:hidden;
+		box-shadow:var(--shadow);
+		background:#f5f5f5;
+	}
+
+	#photoCarousel .carousel-item img{
+		width:100%;
+		height:100%;
+		object-fit:contain;
+		background:var(--cream);
+	}
+
+	#photoCarousel .carousel-control-prev,
+	#photoCarousel .carousel-control-next{
+		width:55px;
+		height:55px;
+		border-radius:50%;
+		background:rgba(94,113,104,.80);
+		top:50%;
+		transform:translateY(-50%);
+	}
+
+	#photoCarousel .carousel-control-prev{
+		left:18px;
+	}
+
+	#photoCarousel .carousel-control-next{
+		right:18px;
+	}
+
+	#photoCarousel .carousel-indicators{
+		bottom:18px;
+		margin-bottom:0;
+	}
+
+	#photoCarousel .carousel-indicators button{
+		width:12px;
+		height:12px;
+		border-radius:50%;
+		margin:0 5px;
+		background:rgba(255,255,255,.55);
+		border:2px solid white;
+		opacity:1;
+		transition:.3s;
+	}
+
+	#photoCarousel .carousel-indicators .active{
+		width:30px;
+		border-radius:20px;
+		background:var(--gold);
+		border-color:var(--gold);
+	}
+
+	/*==================================================
+	=             BOTÓN DE MÚSICA                      =
+	==================================================*/
+
+	.music-control{
+		position:fixed;
+		bottom:25px;
+		right:25px;
+		z-index:999;
+	}
+
+	.btn-music{
+		width:62px;
+		height:62px;
+		border-radius:50%;
+		border:none;
+		background:linear-gradient(
+			135deg,
+			var(--sage),
+			var(--gold));
+
+		color:white;
+		font-size:1.4rem;
+		cursor:pointer;
+		transition:.35s;
+		box-shadow: 0 12px 28px rgba(0,0,0,.18);
+	}
+
+	.btn-music:hover{
+		transform:scale(1.08);
+	}
+
+
+	/*==================================================
+	=            CUENTA REGRESIVA                      =
+	==================================================*/
+
+	.countdown{
+		display:flex;
+		justify-content:center;
+		align-items:center;
+		flex-wrap:wrap;
+		gap:18px;
+		margin:45px 0;
+	}
+
+	.countdown-item{
+		flex:1;
+		max-width:100px;
+		min-width:70px;
+		background:white;
+		border-radius:22px;
+		padding:15px 10px;
+		text-align:center;
+		border:1px solid rgba(124,143,132,.20);
+		box-shadow:0 8px 20px rgba(0,0,0,.08);
+	}
+
+	.countdown-number{
+		font-family:'Cormorant Garamond',serif;
+		font-size:2.5rem;
+		color:var(--sage-dark);
+	}
+
+	.countdown-label{
+		color:var(--text-light);
+		font-size:.85rem;
+		text-transform:uppercase;
+		letter-spacing:1px;
+	}
+
+	/*==================================================
+	=                   FOOTER                         =
+	==================================================*/
+
+	footer{
+		margin-top:80px;
+		background:linear-gradient(
+			135deg,
+			var(--sage-dark),
+			var(--sage));
+
+		color:white;
+		padding:60px 20px;
+		text-align:center;
+		position:relative;
+		overflow:hidden;
+	}
+
+	footer::before{
+		content:"";
+		position:absolute;
+		inset:0;
+		background:
+			radial-gradient(circle at top left,
+			rgba(255,255,255,.08),
+			transparent 35%),
+			radial-gradient(circle at bottom right,
+			rgba(200,169,106,.15),
+		transparent 30%);
+
+	}
+
+	/*==================================================
+	=            DIVISORES FLORALES                    =
+	==================================================*/
+
+	.divider-floral{
+		width:180px;
+		height:5px;
+		margin:35px auto;
+		background:linear-gradient(
+			to right,
+			transparent,
+			var(--gold),
+			transparent);
+		position:relative;
+	}
+
+	.divider-floral::before{
+		content:"❦";
+		position:absolute;
+		left:50%;
+		top:50%;
+		transform:translate(-50%,-50%);
+		background:var(--cream);
+		color:var(--gold);
+		padding:0 12px;
+		font-size:22px;
+	}
+
+	.section-divider{
+		width:120px;
+		height:1px;
+		background:#C8A96A;
+		margin:40px auto 60px;
+		opacity:.7;
+	}
+
+	/*==================================================
+	=              RESPONSIVE                          =
+	==================================================*/
+
+	@media(max-width:768px){
+
+		.nombre-xv{
+			font-size:3rem;
+		}
+
+		h1{
+			font-size:2rem;
+		}
+
+		.main-title{
+			font-size:2.6rem;
+		}
+
+		.section-title{
+			font-size:2rem;
+		}
+
+		.evento-card{
+			padding:25px;
+		}
+		
+		.countdown{
+			gap:8px;
+		}
+
+		.countdown-item{
+			min-width:56px;
+			padding:12px 6px;
+		}
+
+		.countdown-number{
+			font-size:1.6rem;
+		}
+
+		.countdown-label{
+			font-size:.65rem;
+		}
+
+		#photoCarousel .carousel-item img{
+			height:300px;
+		}
+
+	}
+
+	/*==================================================
+	=          BRILLO DORADO MUY SUAVE                 =
+	==================================================*/
+
+	.gold-shine{
+		position:relative;
+		overflow:hidden;
+	}
+
+	.gold-shine::after{
+		content:"";
+		position:absolute;
+		top:-150%;
+		left:-40%;
+		width:35%;
+		height:400%;
+		transform:rotate(25deg);
+		background:
+			linear-gradient(
+				transparent,
+				rgba(255,255,255,.45),
+				transparent
+			);
+		transition:1.2s;
+	}
+
+	.gold-shine:hover::after{
+		left:120%;
+	}
+
+
+	/*==================================================
+	=            FOTO PRINCIPAL PREMIUM                =
+	==================================================*/
+
+	.photo-container{
+		position:relative;
+		display:inline-block;
+		padding:18px;
+	}
+
+	.photo-container::before{
+		content:"";
+		position:absolute;
+		inset:0;
+		border-radius:50%;
+		border:2px solid rgba(200,169,106,.35);
+		animation:rotateBorder 30s linear infinite;
+	}
+
+	.photo-container::after{
+		content:"";
+		position:absolute;
+		inset:-10px;
+		border-radius:50%;
+		border:1px dashed rgba(124,143,132,.20);
+	}
+
+	@keyframes rotateBorder{
+		from{
+			transform:rotate(0deg);
+		}
+
+		to{
+			transform:rotate(360deg);
+		}
+	}
+
+	.foto-principal{
+		width:380px;
+		height:380px;
+		object-fit:cover;
+		border-radius:50%;
+		border:12px solid #fff;
+		outline:2px solid #C8A96A;
+		box-shadow:0 30px 70px rgba(0,0,0,.18);
+	}
+
+
+	/*==================================================
+	=            MARCO BOTÁNICO                         =
+	==================================================*/
+
+	.botanical-frame{
+		position:relative;
+	}
+
+	.botanical-frame::before{
+		content:"";
+		position:absolute;
+		inset:12px;
+		border:1px solid rgba(200,169,106,.25);
+		border-radius:28px;
+		pointer-events:none;
+	}
+
+
+	/*==================================================
+	=           SCROLLBAR ELEGANTE                     =
+	==================================================*/
+
+	::-webkit-scrollbar{
+		width:10px;
+	}
+
+	::-webkit-scrollbar-track{
+		background:#EEF2EE;
+	}
+
+	::-webkit-scrollbar-thumb{
+		background:linear-gradient(
+			var(--sage),
+			var(--gold));
+		border-radius:20px;
+	}
+
+	/*==================================================
+	=         PEQUEÑOS AJUSTES                         =
+	==================================================*/
+
+	img{
+		max-width:100%;
+		display:block;
+	}
+
+	a{
+		text-decoration:none;
+	}
+
+	p{
+		line-height:1.8;
+	}
+
+	h1,h2,h3,h4{
+		font-weight:600;
+	}
+	
+	
+	.glow {
+		position:relative;
+	}
+
+
+	.glow::after {
+		content:"";
+		position:absolute;
+		inset:-5px;
+		background:
+		linear-gradient(
+			45deg,
+			transparent,
+			rgba(255,215,120,.5),
+			transparent
+		);
+		filter:blur(15px);
+		z-index:-1;
+	}
+	
+	.btn-music.playing{
+		animation:spin 5s linear infinite;
+	}
+
+	@keyframes spin{
+		from{
+			transform:rotate(0deg);
+		}
+
+		to{
+			transform:rotate(360deg);
+		}
+	}
+	
+	</style>
+
+</head>
+<body class="botanical-bg"> 
+
+    <audio id="backgroundMusic" loop>
+        <source src="audio/cancion.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="music-control">
+        <button id="musicBtn" class="btn-music" onclick="toggleMusic()">
+            <i class="fas fa-music fa-2x"></i>
+        </button>
+    </div>
+    
+    <section class="py-5">	
+        <div class="container">		
+            <div class="hero-content">
+			
+                <div class="photo-container">
+                    <img src="./images/1.jpeg" class="foto-principal" onclick="toggleMusic()">
+                </div>				
+                
+                <h1 class="main-title">Mis XV años</h1>
+                <h2 class="nombre-xv glow">Karina</h2>
+				<p class="frase-principal"> Porque los sueños también se celebran </p>
+
+				<div class="mt-5">
+					<a href="#inicio" class="text-decoration-none">
+						<i class="fas fa-angle-down fa-3x" style="color:#B89A62"></i>
+					</a>
+				</div>
+								
+            </div>
+        </div>
+    </section>
+	
+	<div class="text-center">
+		<button onclick="scrollToGallery()" class="btn btn-xv gold-shine">
+			<i class="fas fa-images me-2"></i> Ver Galería
+		</button>
+    </div>
+	
+	<div class="divider-floral"></div>
+	
+    <section class="py-5">	
+        <div class="container">
+            
+			<div class="row justify-content-center mb-5">
+				<div class="col-lg-8 col-md-10">
+					<p class="frase-corta">
+						"Hay momentos inolvidables que se atesoran en el corazón para siempre."
+					</p>
+					<p class="text-center invitacion-texto">
+							Con la bendición de Dios y el amor de mi familia, me siento muy feliz de llegar a este momento de mi vida.
+							<br><br>
+							Los invito a compartir conmigo este día tan especial.
+					</p>
+				</div>
+			</div>
+			
+			<div class="section-divider"></div>
+            
+            <div class="row g-5">			
+                <div class="col-md-6 mb-4">
+                    <div class="invitacion-card botanical-frame" data-aos="fade-right">
+                        <div class="evento-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3 class="evento-title">Con el amor de mis padres</h3>
+                        <div class="evento-details">
+							<h4 class="evento-fecha"> Humberto Toral Ramos </h4>
+							<h4 class="evento-fecha"> Albina Santos Romano </h4>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-4">
+                    <div class="invitacion-card botanical-frame" data-aos="fade-left">
+                        <div class="evento-icon">
+                            <i class="fas fa-hands-helping"></i>
+                        </div>
+                        <h3 class="evento-title">Con el cariño de mis padrinos</h3>
+                        <div class="evento-details">
+							<h4 class="evento-fecha"> Andrea Toral Ramos </h4>
+							<h4 class="evento-fecha"> Antonio Cárcamo Diego </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+	
+	<section class="py-5">	
+        <div class="container">		
+            <div class="hero-content">
+			
+                <div class="invitacion-card" data-aos="zoom-in">
+				
+					<h2 class="section-title text-center mb-5">¿Cuándo?</h2>
+					
+					<div class="text-center mt-4">
+						<h4 class="evento-fecha">
+							12 de septiembre de 2026
+						</h4>
+
+						<h5 class="evento-hora">
+							04:00 PM
+						</h5>
+					</div>
+					
+					<p class="frase-corta">
+						Faltan ...
+					</p>
+
+                    <div class="countdown">
+                        <div class="countdown-item">
+                            <div class="countdown-number" id="days">00</div>
+                            <div class="countdown-label">Días</div>
+                        </div>
+                        <div class="countdown-item">
+                            <div class="countdown-number" id="hours">00</div>
+                            <div class="countdown-label">Horas</div>
+                        </div>
+                        <div class="countdown-item">
+                            <div class="countdown-number" id="minutes">00</div>
+                            <div class="countdown-label">Mins</div>
+                        </div>
+                        <div class="countdown-item">
+                            <div class="countdown-number" id="seconds">00</div>
+                            <div class="countdown-label">Seg</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+	
+	<section class="py-5">                
+        <div class="container">		
+            <h2 class="section-title text-center mb-5">¿Dónde?</h2>
+            
+            <div class="row g-5">
+                <div class="col-md-6 mb-4">
+                    <div class="evento-card" data-aos="fade-right">
+                        <div class="evento-icon">
+                            <i class="fas fa-church"></i>
+                        </div>
+                        <h3 class="evento-title">Ceremonia Religiosa</h3>
+                        <div class="evento-details">
+							<p><strong>Capilla de Santiago apóstol</strong></p>
+							<p><i class="fas fa-clock"></i> <strong>04:00 PM.</strong></p>                          
+                            <p> Calle Benito Juárez Mz.001, Tezoyuca Estado de México 56006 </p>
+                        </div>
+						<div class="section-divider"></div>
+                        <div class="text-center">
+                            <a class="btn btn-xv gold-shine" href="https://maps.app.goo.gl/WZLpvTB1ptN3jQVu9" target="_blank">
+                                <i class="fas fa-map-marked-alt me-2"></i> Ubicación
+                            </a>   
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-4">
+                    <div class="evento-card" data-aos="fade-left">
+                        <div class="evento-icon">
+                            <i class="fas fa-glass-cheers"></i>
+                        </div>
+                        <h3 class="evento-title">Celebración</h3>
+                        <div class="evento-details">
+                            <p> Avenida del trabajo S/N, esquina con 20 de noviembre, Barrio de Santiago Tezoyuca</p>
+                        </div>
+						<div class="section-divider"></div>
+                        <div class="text-center">
+                            <a class="btn btn-xv gold-shine" href="https://maps.app.goo.gl/ye1XzRMo4Rxh9HHf8" target="_blank">
+                                <i class="fas fa-map-marked-alt me-2"></i> Ubicación
+                            </a>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </section>
+
+	<section class="py-5">	
+        <div class="container">		
+            <div class="hero-content">		
+					<div class="invitacion-card" data-aos="fade-up">				
+						<h2 class="section-title text-center mb-5"> Asistencia </h2>
+						
+						<div class="text-center mt-4">
+							<h5 class="evento-hora">
+								Agradecemos confirmar su asistencia
+							</h5>
+							<div class="section-divider"></div>
+							<a href="https://wa.link/od1cz0" class="btn btn-xv">
+								<i class="fab fa-whatsapp me-2"></i> Click para confirmar
+							</a>
+						</div>
+					</div>
+            </div>
+        </div>
+    </section>
+        
+    <section class="py-5" id="gallery">
+        
+        <div class="container">
+            <h2 class="section-title text-center mb-5">Galería</h2>
+            
+            <div id="photoCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#photoCarousel" data-bs-slide-to="0" class="active"></button>
+                    <button type="button" data-bs-target="#photoCarousel" data-bs-slide-to="1"></button>
+                    <button type="button" data-bs-target="#photoCarousel" data-bs-slide-to="2"></button>
+                    <button type="button" data-bs-target="#photoCarousel" data-bs-slide-to="3"></button>
+                    <button type="button" data-bs-target="#photoCarousel" data-bs-slide-to="4"></button>
+                    <button type="button" data-bs-target="#photoCarousel" data-bs-slide-to="5"></button>
+                    <button type="button" data-bs-target="#photoCarousel" data-bs-slide-to="6"></button>                    
+                </div>
+                
+                <div class="carousel-inner">
+                    <!-- Fotos Inicio -->
+                    <div class="carousel-item active">
+                        <img src="images/main.jpeg" class="d-block w-100" alt="Inicio 1">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="images/1.jpeg" class="d-block w-100" alt="Inicio 2">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="images/2.jpeg" class="d-block w-100" alt="Inicio 3">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="images/3.jpeg" class="d-block w-100" alt="Inicio 4">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="images/4.jpeg" class="d-block w-100" alt="Inicio 5">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="images/5.jpeg" class="d-block w-100" alt="Inicio 6">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="images/6.jpeg" class="d-block w-100" alt="Inicio 7">
+                    </div>                   
+                </div>
+                
+                <button class="carousel-control-prev" type="button" data-bs-target="#photoCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                    <span class="visually-hidden">Anterior</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#photoCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                    <span class="visually-hidden">Siguiente</span>
+                </button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <h5> Gracias por acompañarme en este día tan especial </h5>
+			<p> Con cariño, <br> Karina</p>
+
+			<div class="evento-icon">
+				<i class="far fa-gem"></i>
+			</div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+    <script>
+
+		AOS.init({
+			duration:1200,
+			once:true
+		});
+		
+		// Variables globales
+        let countdownTimer;
+
+        // Funciones interactivas
+       function toggleMusic() {
+            const music = document.getElementById('backgroundMusic');
+            const btn = document.getElementById('musicBtn');
+
+            if (music.paused) {
+                music.play();
+                btn.innerHTML = '<i class="fas fa-pause fa-2x"></i>';
+            } else {
+                music.pause();
+                btn.innerHTML = '<i class="fas fa-music fa-2x"></i>';
+            }
+        }
+
+        function scrollToGallery() {
+            document.getElementById('gallery').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Contador regresivo
+        function startCountdown() {
+            function updateCountdown() {
+                const targetDate = new Date('2026-09-12T16:00:00');
+                const now = new Date();
+                const diff = targetDate - now;
+
+                if (diff <= 0) {
+                    document.querySelector('.countdown').innerHTML = '<h4>¡El evento ha comenzado!</h4>';
+                    clearInterval(countdownTimer);
+                    return;
+                }
+
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+				const daysEl = document.getElementById('days');
+				const hoursEl = document.getElementById('hours');
+				const minutesEl = document.getElementById('minutes');
+				const secondsEl = document.getElementById('seconds');
+
+                daysEl.textContent = days.toString().padStart(2, '0');
+                hoursEl.textContent = hours.toString().padStart(2, '0');
+                minutesEl.textContent = minutes.toString().padStart(2, '0');
+                secondsEl.textContent = seconds.toString().padStart(2, '0');
+            }
+            
+            updateCountdown();
+            countdownTimer = setInterval(updateCountdown, 1000);
+        }
+        
+        // Inicialización
+        document.addEventListener("DOMContentLoaded", () => {
+			startCountdown();
+		});
+		
+		document.addEventListener('click', function () {
+            const music = document.getElementById('backgroundMusic');
+            const btn = document.getElementById('musicBtn');
+
+            if (music.paused) {
+                music.play();
+                btn.innerHTML = '<i class="fas fa-pause"></i>';
+            }
+        }, { once: true });
+
+        document.getElementById('backgroundMusic').volume = 0.5;
+    </script>
+</body>
+</html>
