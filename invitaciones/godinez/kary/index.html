@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 
 <title>🎈 Comida Kari 🎈</title>
 
@@ -12,24 +15,18 @@ body{
     margin:0;
     min-height:100vh;
 	font-family: 'Quicksand', sans-serif;
-
     background-image:url("images/castillo.webp");
-
     background-size:contain;      /* Muestra toda la imagen */
     background-position:center;
     background-repeat:no-repeat;
-
     background-color:#b8dfff;     /* Color de relleno */
-
     display:flex;
     justify-content:center;
     align-items:center;
-
     perspective:2500px;
 }
 
 body::before{
-
     content:'';
     position:fixed;
     inset:0;
@@ -52,20 +49,14 @@ body::before{
 .page{
     position:absolute;
     inset:0;
-
     background:rgba(255,255,255,.92);
-
     backdrop-filter:blur(4px);
-
     border-radius:15px;
-
     display:flex;
     justify-content:center;
     align-items:center;
     text-align:center;
-
     overflow:auto;
-
     box-shadow:0 0 40px rgba(0,0,0,.25);
 }
 
@@ -73,38 +64,28 @@ body::before{
 .cover{
     position:absolute;
     inset:0;
-
     background:linear-gradient(
         135deg,
         #8748d8,
         #dba8ff
     );
-
     border:6px solid gold;
     border-radius:15px;
-
     display:flex;
     justify-content:center;
     align-items:center;
-
     color:white;
     font-size:2rem;
     font-weight:bold;
-
     transform-origin:left center;
-
     animation:abrirLibro 4s ease forwards;
-
     z-index:100;
-
-    backface-visibility:hidden;
-	
+    backface-visibility:hidden;	
 	animation: abrirLibro 4s ease forwards,
 	quitarPortada 0.1s forwards 4s;
 }
 
 @keyframes quitarPortada{
-
     to{
         opacity:0;
         visibility:hidden;
@@ -114,23 +95,17 @@ body::before{
 
 
 .invitation{
-
     position: relative;
-
     width: 100%;
     max-width: 600px;
 	margin:auto;
-
 	background:rgba(255,255,255,.55);	
     background-size: cover;
     background-position: center;
-
 	backdrop-filter:blur(5px);
     border-radius: 25px;
     overflow: hidden;
-
-    box-shadow: 0 15px 40px rgba(0,0,0,.25);
-	
+    box-shadow: 0 15px 40px rgba(0,0,0,.25);	
 	padding:25px;
 	border-radius:20px;
 }
@@ -292,6 +267,27 @@ h1{
 }
 
 </style>
+
+<script>
+(function () {
+    const VERSION_KEY = 'invitation-version';
+    const currentVersion = '20260910';
+
+    try {
+        const url = new URL(window.location.href);
+
+        if (url.searchParams.get('v') !== currentVersion &&
+            sessionStorage.getItem(VERSION_KEY) !== currentVersion) {
+            sessionStorage.setItem(VERSION_KEY, currentVersion);
+            url.searchParams.set('v', currentVersion);
+            window.location.replace(url.toString());
+        }
+    } catch (e) {
+        // Si el navegador bloquea sessionStorage, la invitación continúa funcionando.
+    }
+})();
+</script>
+
 </head>
 
 <body>
