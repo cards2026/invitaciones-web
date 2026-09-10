@@ -27,6 +27,8 @@ body{
     align-items:center;
 
     perspective:2500px;
+
+	transition:opacity .5s;
 }
 
 body::before{
@@ -219,7 +221,7 @@ h1{
 </style>
 </head>
 
-<body>
+<body style="opacity:0">
 
 <span class="sparkle" style="top:10%;left:20%">✨</span>
 <span class="sparkle" style="top:20%;right:20%">✨</span>
@@ -266,3 +268,11 @@ h1{
 
 </body>
 </html>
+
+<script>
+
+window.onload = () => {
+    document.body.style.opacity = "1";
+};
+
+</script>
