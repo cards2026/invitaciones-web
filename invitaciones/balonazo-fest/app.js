@@ -178,7 +178,7 @@ function submitRsvp() {
 
   const qrEl = document.getElementById('rsvp-qr');
   qrEl.innerHTML = '';
-  const paseUrl = window.location.href.replace(/\/[^/]*$/, '/') + 'pase.html?n=' + encodeURIComponent(name) + '&p=' + rsvpGuests + (phone ? '&t=' + encodeURIComponent(phone) : '');
+  const paseUrl = 'https://cards2026.github.io/invitaciones-web/invitacion-clon/pase.html?n=' + encodeURIComponent(name) + '&p=' + rsvpGuests + (phone ? '&t=' + encodeURIComponent(phone) : '');
   new QRCode(qrEl, { text: paseUrl, width: 180, height: 180, colorDark: '#1a8f33', colorLight: '#ffffff' });
 
   if (window.SHEETS_URL) {
