@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Confirmaciones | BAL⚽NAZO FEST</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --accent: #1a8f33;
+      --accent-dark: #0d5c22;
+      --bg: #EEF2EC;
+      --surface: #fff;
+      --text: #111;
+      --muted: #666;
+      --font: 'Inter', sans-serif;
+      --font-h: 'Playfair Display', serif;
+    }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; }
+
+    /* HEADER */
+    .header {
+      background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+      color: #fff;
+      padding: 1.5rem;
+    }
+    .header-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .header-left { display: flex; align-items: center; gap: .875rem; }
+    .header-icon { font-size: 2rem; }
+    .header h1 { font-family: var(--font-h); font-size: 1.4rem; }
+    .header p  { font-size: .8rem; opacity: .8; margin-top: .1rem; }
+    .header-nav { display: flex; gap: .5rem; flex-wrap: wrap; }
+    .nav-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      padding: .4rem .875rem;
+      border-radius: 9999px;
+      font-size: .78rem;
+      font-weight: 600;
+      text-decoration: none;
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.25);
+      transition: background .2s;
+    }
+    .nav-pill:hover { background: rgba(255,255,255,0.25); }
+
+    .container { max-width: 900px; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+
+    /* STATS */
+    .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: .75rem; margin-bottom: 1.5rem; }
+    @media(min-width:500px) { .stats { grid-template-columns: repeat(4, 1fr); } }
+    .stat-card {
+      background: var(--surface);
+      border-radius: 1rem;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      border: 1px solid rgba(26,143,51,0.1);
+    }
+    .stat-num { font-family: var(--font-h); font-size: 2rem; font-weight: 700; color: var(--accent); }
+    .stat-label { font-size: .72rem; color: var(--muted); margin-top: .2rem; text-transform: uppercase; letter-spacing: .05em; }
+
+    /* TOOLBAR */
+    .toolbar {
+      background: var(--surface);
+      border-radius: 1rem;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      display: flex;
+      gap: .75rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .search-wrap { position: relative; flex: 1; min-width: 180px; }
+    .search-wrap svg { position: absolute; left: .75rem; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+    .search-input {
+      width: 100%;
+      padding: .65rem .75rem .65rem 2.25rem;
+      border: 1.5px solid #e5e7eb;
+      border-radius: .75rem;
+      font-size: .9rem;
+      outline: none;
+      font-family: var(--font);
+      transition: border-color .2s;
+    }
+    .search-input:focus { border-color: var(--accent); }
+    .filter-btns { display: flex; gap: .4rem; flex-wrap: wrap; }
+    .filter-btn {
+      padding: .5rem .875rem;
+      border-radius: 9999px;
+      border: 1.5px solid #e5e7eb;
+      background: #fff;
+      font-size: .78rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--muted);
+      transition: all .2s;
+    }
+    .filter-btn.active { border-color: var(--accent); background: rgba(26,143,51,0.08); color: var(--accent); }
+    .export-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .55rem 1rem;
+      border-radius: 9999px;
+      border: 1.5px solid rgba(26,143,51,0.35);
+      background: #fff;
+      color: var(--accent);
+      font-size: .78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s;
+      margin-left: auto;
+    }
+    .export-btn:hover { background: rgba(26,143,51,0.07); }
+
+    /* TABLE */
+    .table-wrap {
+      background: var(--surface);
+      border-radius: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      overflow: hidden;
+    }
+    .table-header {
+      display: grid;
+      grid-template-columns: 1fr auto auto auto;
+      gap: .5rem;
+      padding: .75rem 1.25rem;
+      background: #f9fafb;
+      border-bottom: 1px solid #e5e7eb;
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--muted);
+    }
+    .row {
+      display: grid;
+      grid-template-columns: 1fr auto auto auto;
+      gap: .5rem;
+      padding: .875rem 1.25rem;
+      border-bottom: 1px solid #f3f4f6;
+      align-items: center;
+      transition: background .15s;
+    }
+    .row:last-child { border-bottom: none; }
+    .row:hover { background: #f9fafb; }
+    .row-name { font-weight: 600; font-size: .95rem; }
+    .row-sub  { font-size: .75rem; color: var(--muted); margin-top: .1rem; }
+    .row-personas {
+      font-weight: 700;
+      font-size: .9rem;
+      color: var(--accent);
+      text-align: center;
+      min-width: 2.5rem;
+    }
+    .row-time { font-size: .75rem; color: var(--muted); text-align: right; white-space: nowrap; }
+    .row-delete {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #d1d5db;
+      padding: .25rem;
+      border-radius: .375rem;
+      transition: color .2s, background .2s;
+      display: flex;
+      align-items: center;
+    }
+    .row-delete:hover { color: #ef4444; background: #fef2f2; }
+
+    /* AVATAR */
+    .row-info { display: flex; align-items: center; gap: .75rem; }
+    .avatar {
+      width: 2.25rem; height: 2.25rem;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+      color: #fff;
+      font-weight: 700;
+      font-size: .9rem;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* EMPTY */
+    .empty {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--muted);
+    }
+    .empty-icon { font-size: 2.5rem; margin-bottom: .75rem; }
+
+    /* MODAL DETALLE */
+    .modal-backdrop {
+      position: fixed; inset: 0; z-index: 100;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(4px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 1rem;
+    }
+    .modal {
+      background: #fff;
+      border-radius: 1.25rem;
+      padding: 1.75rem;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.25);
+      animation: pop-in .3s cubic-bezier(.34,1.56,.64,1);
+    }
+    @keyframes pop-in {
+      from { opacity: 0; transform: scale(.9); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    .modal-title { font-family: var(--font-h); font-size: 1.25rem; margin-bottom: 1.25rem; }
+    .modal-field { margin-bottom: .875rem; }
+    .modal-label { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin-bottom: .2rem; }
+    .modal-value { font-size: 1rem; font-weight: 600; color: var(--text); }
+    .modal-close {
+      width: 100%;
+      margin-top: 1.25rem;
+      padding: .75rem;
+      border-radius: 9999px;
+      border: none;
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+      color: #fff;
+      font-weight: 700;
+      font-size: .95rem;
+      cursor: pointer;
+    }
+
+    /* TOAST */
+    .toast {
+      position: fixed; bottom: 1.5rem; left: 50%;
+      transform: translateX(-50%) translateY(60px);
+      background: var(--accent); color: #fff;
+      padding: .65rem 1.5rem; border-radius: 9999px;
+      font-weight: 600; font-size: .85rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      transition: transform .3s ease; z-index: 200;
+      white-space: nowrap;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    .result-count { font-size: .8rem; color: var(--muted); padding: .5rem 1.25rem; border-bottom: 1px solid #f3f4f6; }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="header-left">
+      <div class="header-icon">📋</div>
+      <div>
+        <h1>Confirmaciones</h1>
+        <p>BAL⚽NAZO FEST — 24 Oct 2026</p>
+      </div>
+    </div>
+    <nav class="header-nav">
+      <a href="registro.html" class="nav-pill">📷 Registro</a>
+      <a href="mural.html" class="nav-pill">🎨 Mural</a>
+      <a href="index.html" class="nav-pill">← Invitación</a>
+    </nav>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat-card">
+      <div class="stat-num" id="stat-total">0</div>
+      <div class="stat-label">Confirmados</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="stat-personas">0</div>
+      <div class="stat-label">Personas</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="stat-con-tel">0</div>
+      <div class="stat-label">Con teléfono</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="stat-con-email">0</div>
+      <div class="stat-label">Con email</div>
+    </div>
+  </div>
+
+  <!-- TOOLBAR -->
+  <div class="toolbar">
+    <div class="search-wrap">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" class="search-input" id="search" placeholder="Buscar por nombre, teléfono o email…">
+    </div>
+    <div class="filter-btns">
+      <button class="filter-btn active" data-filter="todos">Todos</button>
+      <button class="filter-btn" data-filter="con-tel">Con tel.</button>
+      <button class="filter-btn" data-filter="con-email">Con email</button>
+      <button class="filter-btn" data-filter="grupo">Grupo +2</button>
+    </div>
+    <button class="export-btn" onclick="exportCSV()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Exportar CSV
+    </button>
+  </div>
+
+  <!-- TABLE -->
+  <div class="table-wrap">
+    <div class="table-header">
+      <span>Invitado</span>
+      <span style="text-align:center">Personas</span>
+      <span style="text-align:right">Hora</span>
+      <span></span>
+    </div>
+    <div class="result-count" id="result-count"></div>
+    <div id="list-body"></div>
+  </div>
+
+</div>
+
+<!-- MODAL -->
+<div class="modal-backdrop" id="modal" style="display:none" onclick="closeModal(event)">
+  <div class="modal" id="modal-content">
+    <div class="modal-title" id="modal-name"></div>
+    <div id="modal-fields"></div>
+    <button class="modal-close" onclick="document.getElementById('modal').style.display='none'">Cerrar</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const STORAGE_KEY = 'balnazo_rsvp';
+  let currentFilter = 'todos';
+  let searchQuery = '';
+
+  // ── STORAGE ──────────────────────────────────────────────────
+  function getData() { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
+  function saveData(d) { localStorage.setItem(STORAGE_KEY, JSON.stringify(d)); }
+
+  // Migrar datos del RSVP guardados por app.js (clave diferente si existe)
+  function migrateFromSheets() {
+    // Los datos vienen de Google Sheets; aquí también podemos cargar
+    // los que se guardaron localmente al confirmar RSVP
+    const legacy = JSON.parse(localStorage.getItem('balnazo_confirmaciones') || '[]');
+    if (legacy.length) {
+      const current = getData();
+      const merged = [...current];
+      legacy.forEach(l => {
+        if (!merged.find(m => m.nombre === l.nombre)) merged.push(l);
+      });
+      saveData(merged);
+    }
+  }
+
+  // ── STATS ────────────────────────────────────────────────────
+  function updateStats(list) {
+    const all = getData();
+    document.getElementById('stat-total').textContent    = all.length;
+    document.getElementById('stat-personas').textContent = all.reduce((s,r) => s + (r.personas||1), 0);
+    document.getElementById('stat-con-tel').textContent  = all.filter(r => r.telefono).length;
+    document.getElementById('stat-con-email').textContent= all.filter(r => r.email).length;
+  }
+
+  // ── FILTER + SEARCH ──────────────────────────────────────────
+  function getFiltered() {
+    let list = getData().slice().reverse();
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      list = list.filter(r =>
+        r.nombre.toLowerCase().includes(q) ||
+        (r.telefono||'').includes(q) ||
+        (r.email||'').toLowerCase().includes(q)
+      );
+    }
+    if (currentFilter === 'con-tel')   list = list.filter(r => r.telefono);
+    if (currentFilter === 'con-email') list = list.filter(r => r.email);
+    if (currentFilter === 'grupo')     list = list.filter(r => (r.personas||1) >= 2);
+    return list;
+  }
+
+  // ── RENDER ───────────────────────────────────────────────────
+  function render() {
+    const list = getFiltered();
+    updateStats();
+
+    const body = document.getElementById('list-body');
+    const count = document.getElementById('result-count');
+    count.textContent = list.length + ' resultado' + (list.length !== 1 ? 's' : '');
+
+    if (!list.length) {
+      body.innerHTML = `<div class="empty"><div class="empty-icon">🔍</div><p>No hay confirmaciones que coincidan.</p></div>`;
+      return;
+    }
+
+    body.innerHTML = list.map((r, i) => `
+      <div class="row" onclick="openModal(${getData().indexOf(r)})" style="cursor:pointer">
+        <div class="row-info">
+          <div class="avatar">${r.nombre.charAt(0).toUpperCase()}</div>
+          <div>
+            <div class="row-name">${escHtml(r.nombre)}</div>
+            <div class="row-sub">${[r.telefono, r.email].filter(Boolean).join(' · ') || 'Sin contacto'}</div>
+          </div>
+        </div>
+        <div class="row-personas">${r.personas || 1}</div>
+        <div class="row-time">${fmtTime(r.timestamp)}</div>
+        <button class="row-delete" onclick="deleteRow(event, ${getData().indexOf(r)})" title="Eliminar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+        </button>
+      </div>`).join('');
+  }
+
+  // ── MODAL ────────────────────────────────────────────────────
+  function openModal(idx) {
+    const r = getData()[idx];
+    if (!r) return;
+    document.getElementById('modal-name').textContent = r.nombre;
+    const fields = [
+      { label: 'Personas', value: (r.personas || 1) + (r.personas > 1 ? ' personas' : ' persona') },
+      { label: 'Teléfono', value: r.telefono || '—' },
+      { label: 'Email',    value: r.email    || '—' },
+      { label: 'Confirmó', value: fmtFull(r.timestamp) },
+    ];
+    document.getElementById('modal-fields').innerHTML = fields.map(f => `
+      <div class="modal-field">
+        <div class="modal-label">${f.label}</div>
+        <div class="modal-value">${escHtml(String(f.value))}</div>
+      </div>`).join('');
+    document.getElementById('modal').style.display = 'flex';
+  }
+
+  function closeModal(e) {
+    if (e.target === document.getElementById('modal')) {
+      document.getElementById('modal').style.display = 'none';
+    }
+  }
+
+  // ── DELETE ───────────────────────────────────────────────────
+  function deleteRow(e, idx) {
+    e.stopPropagation();
+    if (!confirm('¿Eliminar esta confirmación?')) return;
+    const list = getData();
+    list.splice(idx, 1);
+    saveData(list);
+    render();
+    showToast('Confirmación eliminada');
+  }
+
+  // ── EXPORT CSV ───────────────────────────────────────────────
+  function exportCSV() {
+    const list = getData();
+    if (!list.length) { showToast('No hay datos para exportar'); return; }
+    const header = 'Nombre,Personas,Teléfono,Email,Fecha';
+    const rows = list.map(r =>
+      [r.nombre, r.personas||1, r.telefono||'', r.email||'', fmtFull(r.timestamp)]
+        .map(v => '"' + String(v).replace(/"/g,'""') + '"').join(',')
+    );
+    const csv = [header, ...rows].join('\n');
+    const a = document.createElement('a');
+    a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+    a.download = 'confirmaciones-balnazo-fest.csv';
+    a.click();
+    showToast('CSV descargado ✓');
+  }
+
+  // ── HELPERS ──────────────────────────────────────────────────
+  function escHtml(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+  function fmtTime(ts) {
+    if (!ts) return '—';
+    return new Date(ts).toLocaleTimeString('es-MX', { hour:'2-digit', minute:'2-digit' });
+  }
+  function fmtFull(ts) {
+    if (!ts) return '—';
+    return new Date(ts).toLocaleDateString('es-MX', { day:'numeric', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
+  }
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+  }
+
+  // ── EVENTS ───────────────────────────────────────────────────
+  document.getElementById('search').addEventListener('input', function() {
+    searchQuery = this.value.trim();
+    render();
+  });
+
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      currentFilter = this.dataset.filter;
+      render();
+    });
+  });
+
+  // ── INIT ─────────────────────────────────────────────────────
+  // Escuchar confirmaciones nuevas desde app.js via localStorage
+  window.addEventListener('storage', e => {
+    if (e.key === STORAGE_KEY) render();
+  });
+
+  migrateFromSheets();
+  render();
+</script>
+</body>
+</html>

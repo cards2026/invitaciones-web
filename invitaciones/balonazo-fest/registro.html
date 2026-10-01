@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro de Asistencia | BAL⚽NAZO FEST</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --accent: #1a8f33;
+      --accent-dark: #0d5c22;
+      --bg: #EEF2EC;
+      --surface: #fff;
+      --text: #111;
+      --muted: #666;
+      --radius: 1rem;
+      --font: 'Inter', sans-serif;
+      --font-h: 'Playfair Display', serif;
+    }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; }
+
+    /* HEADER */
+    .header {
+      background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+      color: #fff;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .header-icon { font-size: 2rem; }
+    .header h1 { font-family: var(--font-h); font-size: 1.4rem; }
+    .header p  { font-size: .8rem; opacity: .85; margin-top: .1rem; }
+
+    .container { max-width: 700px; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+
+    /* STATS */
+    .stats { display: grid; grid-template-columns: repeat(3,1fr); gap: .75rem; margin-bottom: 1.5rem; }
+    .stat-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      border: 1px solid rgba(26,143,51,0.12);
+    }
+    .stat-num { font-size: 2rem; font-weight: 700; color: var(--accent); font-family: var(--font-h); }
+    .stat-label { font-size: .75rem; color: var(--muted); margin-top: .2rem; }
+
+    /* SCANNER */
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      border: 1px solid rgba(26,143,51,0.1);
+      margin-bottom: 1.25rem;
+    }
+    .card-title {
+      font-family: var(--font-h);
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    #scanner-wrap { border-radius: .75rem; overflow: hidden; }
+    #reader { width: 100%; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      padding: .75rem 1.5rem;
+      border-radius: 9999px;
+      border: none;
+      cursor: pointer;
+      font-size: .95rem;
+      font-weight: 600;
+      transition: opacity .2s, transform .2s;
+      width: 100%;
+    }
+    .btn:hover { opacity: .9; transform: translateY(-1px); }
+    .btn-green { background: linear-gradient(135deg, var(--accent), var(--accent-dark)); color: #fff; }
+    .btn-outline { background: #fff; border: 2px solid var(--accent); color: var(--accent); }
+    .btn + .btn { margin-top: .625rem; }
+
+    /* RESULT */
+    .result-box {
+      display: none;
+      border-radius: .875rem;
+      padding: 1.25rem;
+      margin-top: 1rem;
+      text-align: center;
+    }
+    .result-box.success { background: rgba(26,143,51,0.1); border: 1.5px solid rgba(26,143,51,0.3); }
+    .result-box.error   { background: rgba(220,38,38,0.08); border: 1.5px solid rgba(220,38,38,0.25); }
+    .result-icon { font-size: 2.5rem; margin-bottom: .5rem; }
+    .result-name { font-size: 1.2rem; font-weight: 700; color: var(--accent); }
+    .result-detail { font-size: .9rem; color: var(--muted); margin-top: .25rem; }
+
+    /* MANUAL */
+    .input {
+      width: 100%;
+      padding: .75rem 1rem;
+      border: 1.5px solid #d6d3d1;
+      border-radius: .75rem;
+      font-size: 1rem;
+      outline: none;
+      font-family: var(--font);
+      margin-bottom: .75rem;
+      transition: border-color .2s;
+    }
+    .input:focus { border-color: var(--accent); }
+
+    /* LIST */
+    .list-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: .75rem;
+    }
+    .badge {
+      background: var(--accent);
+      color: #fff;
+      font-size: .75rem;
+      font-weight: 700;
+      padding: .2rem .6rem;
+      border-radius: 9999px;
+    }
+    .attendee-list { display: flex; flex-direction: column; gap: .5rem; max-height: 340px; overflow-y: auto; }
+    .attendee-item {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      padding: .75rem 1rem;
+      background: #f9fafb;
+      border-radius: .75rem;
+      border: 1px solid #e5e7eb;
+    }
+    .attendee-avatar {
+      width: 2.5rem; height: 2.5rem;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .attendee-name { font-weight: 600; font-size: .95rem; }
+    .attendee-meta { font-size: .78rem; color: var(--muted); }
+    .attendee-time { margin-left: auto; font-size: .75rem; color: var(--muted); white-space: nowrap; }
+    .empty-state { text-align: center; padding: 2rem; color: var(--muted); font-size: .9rem; }
+
+    /* TABS */
+    .tabs { display: flex; gap: .5rem; margin-bottom: 1rem; }
+    .tab {
+      flex: 1;
+      padding: .6rem;
+      border-radius: .75rem;
+      border: 1.5px solid #d6d3d1;
+      background: #fff;
+      font-size: .85rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--muted);
+      transition: all .2s;
+      text-align: center;
+    }
+    .tab.active { border-color: var(--accent); background: rgba(26,143,51,0.08); color: var(--accent); }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    .nav-link {
+      display: block;
+      text-align: center;
+      margin-top: 1.5rem;
+      color: var(--accent);
+      font-weight: 600;
+      text-decoration: none;
+      font-size: .9rem;
+    }
+    .nav-link:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-icon">⚽</div>
+  <div>
+    <h1>Registro de Asistencia</h1>
+    <p>BAL⚽NAZO FEST — 24 Oct 2026</p>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat-card">
+      <div class="stat-num" id="stat-total">0</div>
+      <div class="stat-label">Registrados</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="stat-personas">0</div>
+      <div class="stat-label">Personas</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="stat-hoy">0</div>
+      <div class="stat-label">Hoy</div>
+    </div>
+  </div>
+
+  <!-- SCANNER CARD -->
+  <div class="card">
+    <div class="card-title">📷 Escanear QR</div>
+
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab('scan')">Cámara</div>
+      <div class="tab" onclick="switchTab('manual')">Manual</div>
+    </div>
+
+    <!-- TAB CÁMARA -->
+    <div class="tab-panel active" id="tab-scan">
+      <div id="scanner-wrap">
+        <div id="reader"></div>
+      </div>
+      <button class="btn btn-green" style="margin-top:.75rem" id="btn-start-scan">
+        📷 Iniciar escáner
+      </button>
+      <button class="btn btn-outline" id="btn-stop-scan" style="display:none">
+        ⏹ Detener escáner
+      </button>
+    </div>
+
+    <!-- TAB MANUAL -->
+    <div class="tab-panel" id="tab-manual">
+      <input type="text" class="input" id="manual-input" placeholder="Pega o escribe el contenido del QR">
+      <button class="btn btn-green" onclick="processQR(document.getElementById('manual-input').value)">
+        ✓ Registrar manualmente
+      </button>
+    </div>
+
+    <!-- RESULTADO -->
+    <div class="result-box" id="result-box">
+      <div class="result-icon" id="result-icon"></div>
+      <div class="result-name" id="result-name"></div>
+      <div class="result-detail" id="result-detail"></div>
+    </div>
+  </div>
+
+  <!-- LISTA -->
+  <div class="card">
+    <div class="list-header">
+      <div class="card-title" style="margin:0">✅ Asistentes registrados</div>
+      <span class="badge" id="badge-count">0</span>
+    </div>
+    <div class="attendee-list" id="attendee-list">
+      <div class="empty-state">Aún no hay registros.<br>Escanea el primer QR para comenzar.</div>
+    </div>
+  </div>
+
+  <a href="index.html" class="nav-link">← Volver a la invitación</a>
+  <a href="mural.html" class="nav-link" style="margin-top:.5rem">🎨 Ver mural de mensajes</a>
+  <a href="confirmaciones.html" class="nav-link" style="margin-top:.5rem">📋 Ver confirmaciones</a>
+
+</div>
+
+<script>
+  // ── STORAGE ──────────────────────────────────────────────────
+  const STORAGE_KEY = 'balnazo_asistentes';
+
+  function getAttendees() {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+  }
+  function saveAttendees(list) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+  }
+
+  // ── STATS ────────────────────────────────────────────────────
+  function updateStats() {
+    const list = getAttendees();
+    const today = new Date().toDateString();
+    const hoy = list.filter(a => new Date(a.timestamp).toDateString() === today).length;
+    const personas = list.reduce((s, a) => s + (a.personas || 1), 0);
+    document.getElementById('stat-total').textContent = list.length;
+    document.getElementById('stat-personas').textContent = personas;
+    document.getElementById('stat-hoy').textContent = hoy;
+    document.getElementById('badge-count').textContent = list.length;
+  }
+
+  // ── RENDER LIST ──────────────────────────────────────────────
+  function renderList() {
+    const list = getAttendees().slice().reverse();
+    const el = document.getElementById('attendee-list');
+    if (!list.length) {
+      el.innerHTML = '<div class="empty-state">Aún no hay registros.<br>Escanea el primer QR para comenzar.</div>';
+      return;
+    }
+    el.innerHTML = list.map(a => `
+      <div class="attendee-item">
+        <div class="attendee-avatar">${a.nombre.charAt(0).toUpperCase()}</div>
+        <div>
+          <div class="attendee-name">${a.nombre}</div>
+          <div class="attendee-meta">${a.personas} persona${a.personas > 1 ? 's' : ''}${a.telefono ? ' · ' + a.telefono : ''}</div>
+        </div>
+        <div class="attendee-time">${formatTime(a.timestamp)}</div>
+      </div>`).join('');
+  }
+
+  function formatTime(ts) {
+    const d = new Date(ts);
+    return d.toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' });
+  }
+
+  // ── PROCESS QR ───────────────────────────────────────────────
+  function processQR(text) {
+    text = text.trim();
+    if (!text) return;
+
+    // Soporta URL: pase.html?n=Nombre&p=2&t=tel
+    // y texto legacy: BALNAZO FEST | Nombre x2 | Tel: xxx
+    let nombre, personas, telefono;
+
+    if (text.includes('pase.html')) {
+      try {
+        const url = new URL(text);
+        nombre   = decodeURIComponent(url.searchParams.get('n') || '');
+        personas = parseInt(url.searchParams.get('p')) || 1;
+        telefono = decodeURIComponent(url.searchParams.get('t') || '');
+      } catch(e) {
+        // fallback: parsear query string manualmente
+        const qs = text.split('?')[1] || '';
+        const p  = new URLSearchParams(qs);
+        nombre   = decodeURIComponent(p.get('n') || 'Invitado');
+        personas = parseInt(p.get('p')) || 1;
+        telefono = decodeURIComponent(p.get('t') || '');
+      }
+    } else if (text.includes('BALNAZO FEST')) {
+      const parts = text.split('|').map(s => s.trim());
+      const match = parts[1] ? parts[1].match(/^(.+?)\s+x(\d+)$/) : null;
+      nombre   = match ? match[1].trim() : (parts[1] || 'Invitado');
+      personas = match ? parseInt(match[2]) : 1;
+      const telPart = parts.find(p => p.startsWith('Tel:'));
+      telefono = telPart ? telPart.replace('Tel:', '').trim() : '';
+    } else {
+      showResult('error', '❌', 'QR no válido', 'Este código no pertenece al evento.');
+      return;
+    }
+
+    if (!nombre) { showResult('error', '❌', 'QR no válido', 'No se pudo leer el nombre.'); return; }
+
+    const list = getAttendees();
+    const yaRegistrado = list.find(a => a.nombre.toLowerCase() === nombre.toLowerCase());
+    if (yaRegistrado) {
+      showResult('error', '⚠️', nombre, 'Ya fue registrado a las ' + formatTime(yaRegistrado.timestamp));
+      return;
+    }
+
+    const entry = { nombre, personas, telefono, timestamp: Date.now() };
+    list.push(entry);
+    saveAttendees(list);
+    updateStats();
+    renderList();
+    showResult('success', '✅', nombre, personas + ' persona' + (personas > 1 ? 's' : '') + ' — ¡Bienvenido!');
+
+    if (window.SHEETS_URL) {
+      fetch(window.SHEETS_URL, {
+        method: 'POST',
+        body: JSON.stringify({ tipo: 'registro', nombre, personas, telefono, timestamp: new Date().toISOString() })
+      }).catch(() => {});
+    }
+  }
+
+  function showResult(type, icon, name, detail) {
+    const box = document.getElementById('result-box');
+    box.className = 'result-box ' + type;
+    box.style.display = 'block';
+    document.getElementById('result-icon').textContent = icon;
+    document.getElementById('result-name').textContent = name;
+    document.getElementById('result-detail').textContent = detail;
+    setTimeout(() => { box.style.display = 'none'; }, 4000);
+  }
+
+  // ── SCANNER ──────────────────────────────────────────────────
+  let scanner = null;
+  let scanning = false;
+
+  document.getElementById('btn-start-scan').addEventListener('click', startScan);
+  document.getElementById('btn-stop-scan').addEventListener('click', stopScan);
+
+  function startScan() {
+    if (scanning) return;
+    scanner = new Html5Qrcode('reader');
+    scanner.start(
+      { facingMode: 'environment' },
+      { fps: 10, qrbox: { width: 250, height: 250 } },
+      (text) => { stopScan(); processQR(text); },
+      () => {}
+    ).then(() => {
+      scanning = true;
+      document.getElementById('btn-start-scan').style.display = 'none';
+      document.getElementById('btn-stop-scan').style.display = 'flex';
+    }).catch(err => alert('No se pudo acceder a la cámara: ' + err));
+  }
+
+  function stopScan() {
+    if (!scanner || !scanning) return;
+    scanner.stop().then(() => {
+      scanning = false;
+      document.getElementById('btn-start-scan').style.display = 'flex';
+      document.getElementById('btn-stop-scan').style.display = 'none';
+    });
+  }
+
+  // ── TABS ─────────────────────────────────────────────────────
+  function switchTab(tab) {
+    document.querySelectorAll('.tab').forEach((t, i) => t.classList.toggle('active', (i === 0) === (tab === 'scan')));
+    document.getElementById('tab-scan').classList.toggle('active', tab === 'scan');
+    document.getElementById('tab-manual').classList.toggle('active', tab === 'manual');
+    if (tab !== 'scan') stopScan();
+  }
+
+  // ── INIT ─────────────────────────────────────────────────────
+  updateStats();
+  renderList();
+</script>
+<script>window.SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxiWrSIncHFQXSNikuo62WJKocpxh449YOUcodsPEFFKS3jAlmWEhj21KSuCGvI1t7vNw/exec';</script>
+</body>
+</html>

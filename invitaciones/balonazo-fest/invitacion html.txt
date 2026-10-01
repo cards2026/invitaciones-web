@@ -1,0 +1,7 @@
+La implementación se ha actualizado correctamente.
+Versión 1 del 1 oct 2026, 11:08
+ID de implementación
+AKfycbxiWrSIncHFQXSNikuo62WJKocpxh449YOUcodsPEFFKS3jAlmWEhj21KSuCGvI1t7vNw
+Aplicación web
+URL
+https://script.google.com/macros/s/AKfycbxiWrSIncHFQXSNikuo62WJKocpxh449YOUcodsPEFFKS3jAlmWEhj21KSuCGvI1t7vNw/exec

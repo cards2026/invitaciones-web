@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tu Pase | BAL⚽NAZO FEST</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --accent: #1a8f33;
+      --dark: #071a0c;
+      --font: 'Inter', sans-serif;
+      --font-h: 'Playfair Display', serif;
+    }
+
+    body {
+      font-family: var(--font);
+      min-height: 100vh;
+      background: var(--dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* fondo cancha */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(26,143,51,0.07) 60px, rgba(26,143,51,0.07) 61px),
+        repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(26,143,51,0.05) 60px, rgba(26,143,51,0.05) 61px);
+      pointer-events: none;
+    }
+
+    .orb {
+      position: fixed; border-radius: 50%; filter: blur(80px); pointer-events: none;
+    }
+    .orb-1 { width: 400px; height: 400px; background: rgba(26,143,51,0.2); top: -100px; left: -100px; }
+    .orb-2 { width: 300px; height: 300px; background: rgba(0,255,0,0.07); bottom: -60px; right: -60px; }
+
+    /* PASE */
+    .pase {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 380px;
+      background: #fff;
+      border-radius: 1.5rem;
+      overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(26,143,51,0.2);
+      animation: slide-up .5s cubic-bezier(.34,1.56,.64,1);
+    }
+    @keyframes slide-up {
+      from { opacity: 0; transform: translateY(40px) scale(.95); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* HEADER DEL PASE */
+    .pase-header {
+      background: linear-gradient(135deg, #0d5c22, #1a8f33);
+      padding: 1.75rem 1.5rem 1.25rem;
+      text-align: center;
+      position: relative;
+    }
+    .pase-header::after {
+      content: '';
+      position: absolute;
+      bottom: -1px; left: 0; right: 0;
+      height: 24px;
+      background: #fff;
+      clip-path: ellipse(55% 100% at 50% 100%);
+    }
+    .pase-event {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: .5rem;
+    }
+    .pase-title {
+      font-family: var(--font-h);
+      font-size: 1.6rem;
+      color: #fff;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      line-height: 1.2;
+    }
+    .pase-ball {
+      font-size: 2rem;
+      margin-top: .5rem;
+      display: block;
+    }
+
+    /* BODY DEL PASE */
+    .pase-body {
+      padding: 1.75rem 1.5rem 1.25rem;
+    }
+    .pase-label {
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: #9ca3af;
+      margin-bottom: .25rem;
+    }
+    .pase-name {
+      font-family: var(--font-h);
+      font-size: 1.75rem;
+      color: #111;
+      line-height: 1.2;
+      margin-bottom: 1.25rem;
+    }
+    .pase-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: .875rem;
+      margin-bottom: 1.25rem;
+    }
+    .pase-detail {
+      background: #f9fafb;
+      border-radius: .75rem;
+      padding: .75rem;
+    }
+    .pase-detail-label { font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #9ca3af; margin-bottom: .2rem; }
+    .pase-detail-value { font-size: 1rem; font-weight: 700; color: #111; }
+    .pase-detail-value.green { color: var(--accent); }
+
+    /* SEPARADOR TROQUELADO */
+    .pase-tear {
+      display: flex;
+      align-items: center;
+      margin: 0 -1.5rem;
+      position: relative;
+    }
+    .pase-tear::before, .pase-tear::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      border-top: 2px dashed #e5e7eb;
+    }
+    .pase-tear-circle {
+      width: 1.5rem; height: 1.5rem;
+      border-radius: 50%;
+      background: var(--dark);
+      flex-shrink: 0;
+      margin: 0 -.75rem;
+    }
+
+    /* FOOTER DEL PASE */
+    .pase-footer {
+      padding: 1.25rem 1.5rem 1.5rem;
+      text-align: center;
+    }
+    .pase-footer-label {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: #9ca3af;
+      margin-bottom: .75rem;
+    }
+    .pase-date-row {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+    .pase-date-item { text-align: center; }
+    .pase-date-num { font-family: var(--font-h); font-size: 1.5rem; color: var(--accent); font-weight: 700; }
+    .pase-date-lbl { font-size: .65rem; color: #9ca3af; text-transform: uppercase; letter-spacing: .08em; }
+
+    /* ESTADO */
+    .pase-status {
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      background: rgba(26,143,51,0.1);
+      border: 1px solid rgba(26,143,51,0.3);
+      border-radius: 9999px;
+      padding: .35rem .875rem;
+      font-size: .8rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-top: 1rem;
+    }
+    .status-dot {
+      width: .5rem; height: .5rem;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse-dot 1.5s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%,100% { opacity: 1; } 50% { opacity: .3; }
+    }
+
+    /* INSTRUCCIÓN */
+    .instruccion {
+      position: relative;
+      z-index: 1;
+      margin-top: 1.5rem;
+      text-align: center;
+      color: rgba(255,255,255,0.45);
+      font-size: .8rem;
+      max-width: 320px;
+      line-height: 1.6;
+    }
+
+    /* INVÁLIDO */
+    .invalid {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      color: rgba(255,255,255,0.6);
+      padding: 2rem;
+    }
+    .invalid-icon { font-size: 3rem; margin-bottom: 1rem; }
+  </style>
+</head>
+<body>
+
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+
+<div id="content"></div>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const nombre = params.get('n');
+  const personas = parseInt(params.get('p')) || 1;
+  const tel = params.get('t') || '';
+
+  const content = document.getElementById('content');
+
+  if (!nombre) {
+    content.innerHTML = `
+      <div class="invalid">
+        <div class="invalid-icon">❌</div>
+        <p>Pase no válido.<br>Escanea el QR de tu invitación.</p>
+      </div>`;
+  } else {
+    content.innerHTML = `
+      <div class="pase">
+        <div class="pase-header">
+          <div class="pase-event">⚽ Entrada oficial</div>
+          <div class="pase-title">BAL⚽NAZO FEST</div>
+          <span class="pase-ball">🏆</span>
+        </div>
+
+        <div class="pase-body">
+          <div class="pase-label">Invitado</div>
+          <div class="pase-name">${escHtml(nombre)}</div>
+
+          <div class="pase-details">
+            <div class="pase-detail">
+              <div class="pase-detail-label">Personas</div>
+              <div class="pase-detail-value green">${personas} ${personas === 1 ? 'persona' : 'personas'}</div>
+            </div>
+            <div class="pase-detail">
+              <div class="pase-detail-label">Evento</div>
+              <div class="pase-detail-value">Josué 25 + Arturo 1</div>
+            </div>
+          </div>
+
+          <div style="text-align:center">
+            <div class="pase-status">
+              <div class="status-dot"></div>
+              Confirmado ✓
+            </div>
+          </div>
+        </div>
+
+        <div class="pase-tear">
+          <div class="pase-tear-circle"></div>
+          <div class="pase-tear-circle"></div>
+        </div>
+
+        <div class="pase-footer">
+          <div class="pase-footer-label">Fecha del evento</div>
+          <div class="pase-date-row">
+            <div class="pase-date-item">
+              <div class="pase-date-num">Sáb</div>
+              <div class="pase-date-lbl">Día</div>
+            </div>
+            <div class="pase-date-item">
+              <div class="pase-date-num">24</div>
+              <div class="pase-date-lbl">Oct</div>
+            </div>
+            <div class="pase-date-item">
+              <div class="pase-date-num">2026</div>
+              <div class="pase-date-lbl">Año</div>
+            </div>
+            <div class="pase-date-item">
+              <div class="pase-date-num">5pm</div>
+              <div class="pase-date-lbl">Hora</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="instruccion">
+        Muestra este pase al llegar al evento.<br>
+        El equipo lo escaneará para registrar tu entrada.
+      </p>`;
+  }
+
+  function escHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+</script>
+</body>
+</html>
