@@ -1,1 +1,430 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Josué 25 + Arturo 1 | BAL⚽️NAZO FEST</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
 
+  <!-- PANTALLA DE BIENVENIDA (modal) -->
+  <div class="welcome-overlay" id="welcome-overlay">
+    <div class="welcome-bg"></div>
+    <div class="welcome-orbs"></div>
+    <div class="welcome-card">
+
+      <!-- franja verde superior -->
+      <div class="welcome-badge">
+        <span class="welcome-badge-label">Te invitamos al</span>
+        <span class="welcome-badge-title">BAL⚽️NAZO FEST</span>
+      </div>
+
+      <!-- cuerpo -->
+      <div class="welcome-card-body">
+
+        <!-- ícono -->
+        <div class="welcome-icon-wrap">
+          <div class="welcome-icon-ring"></div>
+          <span class="welcome-icon">🎉</span>
+        </div>
+
+        <!-- nombres -->
+        <p class="welcome-main-title">Josué 25 + Arturo 1</p>
+
+        <div class="welcome-names">
+          <div class="welcome-name-chip">
+            <span class="welcome-name-num">25</span>
+            <span class="welcome-name-text">Josué</span>
+          </div>
+          <span class="welcome-names-sep">⚽️</span>
+          <div class="welcome-name-chip">
+            <span class="welcome-name-num">1</span>
+            <span class="welcome-name-text">Arturo</span>
+          </div>
+        </div>
+
+        <!-- separador -->
+        <div class="welcome-divider">
+          <span class="welcome-divider-line"></span>
+          <span class="welcome-divider-dot"></span>
+          <span class="welcome-divider-line"></span>
+        </div>
+
+        <!-- descripción -->
+        <p class="welcome-desc">Esperamos que puedas acompañarnos<br>en este día tan especial</p>
+
+        <!-- botón -->
+        <button class="welcome-btn" id="btn-open">
+          <span class="btn-icon">✨</span>
+          Abrir invitación
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><path d="m9 18 6-6-6-6"/></svg>
+        </button>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- INVITACIÓN PRINCIPAL -->
+  <div class="invitation" id="invitation" style="display:none">
+
+    <!-- BARRA DE PROGRESO SCROLL -->
+    <div class="scroll-bar" id="scroll-bar"></div>
+
+    <!-- BOTÓN MÚSICA -->
+    <button class="music-btn" id="music-btn" title="Reproducir música">▶</button>
+
+    <!-- BOTONES NAVEGACIÓN -->
+    <div class="nav-btns">
+      <button class="nav-btn" id="btn-scroll-down" title="Siguiente sección">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 9l-7 7-7-7"/></svg>
+      </button>
+      <button class="nav-btn" id="btn-menu" title="Menú">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+      <div class="hero-img-wrap">
+        <img
+          class="hero-img"
+          src="img/hero.jpeg"
+          alt="Foto del evento"
+        >
+      </div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <p class="hero-kicker">
+          <span class="kicker-line"></span>
+          BAL⚽️NAZO FEST 🥳
+        </p>
+        <h1 class="hero-title">Josué 25 + Arturo 1</h1>
+      </div>
+    </section>
+
+    <!-- CUENTA REGRESIVA -->
+    <div class="countdown-section" id="countdown-section">
+      <h3 class="countdown-heading">✨ Cuenta Regresiva ✨</h3>
+      <div class="countdown-grid">
+        <div class="countdown-unit">
+          <div class="countdown-box"><span id="cd-days">00</span></div>
+          <span class="countdown-label">Días</span>
+        </div>
+        <div class="countdown-unit">
+          <div class="countdown-box"><span id="cd-hours">00</span></div>
+          <span class="countdown-label">Horas</span>
+        </div>
+        <div class="countdown-unit">
+          <div class="countdown-box"><span id="cd-mins">00</span></div>
+          <span class="countdown-label">Minutos</span>
+        </div>
+        <div class="countdown-unit">
+          <div class="countdown-box"><span id="cd-secs">00</span></div>
+          <span class="countdown-label">Segundos</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div class="content-wrap">
+
+      <!-- DESCRIPCIÓN -->
+      <section class="card desc-card reveal" id="content-section">
+        <div class="desc-field">
+          <div class="desc-field-lines">
+            <div class="desc-field-line"></div>
+            <div class="desc-field-line"></div>
+            <div class="desc-field-circle"></div>
+          </div>
+        </div>
+        <div class="card-inner text-center">
+          <div class="desc-players">
+            <div class="desc-player">
+              <div class="desc-jersey">
+                <svg viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg" width="72" height="65">
+                  <path d="M25 5 L5 25 L18 32 L18 85 L82 85 L82 32 L95 25 L75 5 Q62 14 50 14 Q38 14 25 5Z" fill="#1a8f33" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+                  <path d="M25 5 Q38 14 50 14 Q62 14 75 5" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+                  <text x="50" y="62" text-anchor="middle" font-family="'Playfair Display',serif" font-size="28" font-weight="700" fill="#fff">25</text>
+                </svg>
+              </div>
+              <span class="desc-player-name">Josué</span>
+            </div>
+            <div class="desc-vs">⚽️</div>
+            <div class="desc-player">
+              <div class="desc-jersey desc-jersey--alt">
+                <svg viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg" width="72" height="65">
+                  <path d="M25 5 L5 25 L18 32 L18 85 L82 85 L82 32 L95 25 L75 5 Q62 14 50 14 Q38 14 25 5Z" fill="#0d5c22" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+                  <path d="M25 5 Q38 14 50 14 Q62 14 75 5" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"/>
+                  <text x="50" y="62" text-anchor="middle" font-family="'Playfair Display',serif" font-size="28" font-weight="700" fill="#fff">1</text>
+                </svg>
+              </div>
+              <span class="desc-player-name">Arturo</span>
+            </div>
+          </div>
+          <h3 class="card-title desc-title">⚽️Josué 25 + Arturo 1= ¡BAL⚽️NAZO FEST!⚽️</h3>
+          <p class="card-text">¡Papá e hijo celebran en grande y están armando el equipo completo! Acompáñanos a festejar los 25 años de Josué y el 1er año de Arturo.</p>
+        </div>
+      </section>
+
+      <!-- GALERÍA -->
+      <section class="card reveal" id="gallery-section">
+        <div class="card-icon-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" width="24" height="24"><path d="m22 11-1.296-1.296a2.4 2.4 0 0 0-3.408 0L11 16"/><path d="M4 8a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2"/><circle cx="13" cy="7" r="1" fill="currentColor"/><rect x="8" y="2" width="14" height="14" rx="2"/></svg>
+        </div>
+        <div class="card-inner">
+          <h3 class="card-title with-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" style="color:var(--accent)"><path d="m22 11-1.296-1.296a2.4 2.4 0 0 0-3.408 0L11 16"/><path d="M4 8a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2"/><circle cx="13" cy="7" r="1" fill="currentColor"/><rect x="8" y="2" width="14" height="14" rx="2"/></svg>
+            Fuera de la cancha
+          </h3>
+          <div class="photo-grid" id="photo-grid"></div>
+          <button class="action-btn gallery-more-btn" id="btn-more-photos" style="display:none">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M12 5v14M5 12h14"/></svg>
+            Ver más fotos
+          </button>
+        </div>
+      </section>
+
+      <!-- LIGHTBOX -->
+      <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" style="display:none">
+        <div class="lightbox-backdrop" id="lightbox-backdrop"></div>
+        <button class="lightbox-close" id="lightbox-close" aria-label="Cerrar">×</button>
+        <button class="lightbox-nav lightbox-prev" id="lightbox-prev" aria-label="Anterior">‹</button>
+        <div class="lightbox-img-wrap">
+          <img class="lightbox-img" id="lightbox-img" src="" alt="">
+        </div>
+        <button class="lightbox-nav lightbox-next" id="lightbox-next" aria-label="Siguiente">›</button>
+        <div class="lightbox-counter" id="lightbox-counter"></div>
+      </div>
+
+      <!-- FECHA -->
+      <section class="card date-card reveal" id="date-section">
+        <div class="card-icon-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" width="24" height="24"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
+        </div>
+        <div class="card-inner">
+          <h3 class="card-title with-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" style="color:var(--accent)"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
+            Fecha y Hora
+          </h3>
+          <div class="date-display">
+            <div class="date-calendar">
+              <div class="date-cal-header">OCT</div>
+              <div class="date-cal-day">24</div>
+              <div class="date-cal-year">2026</div>
+            </div>
+            <div class="date-details">
+              <div class="date-detail-row">
+                <span class="date-detail-icon">📅</span>
+                <div>
+                  <p class="date-detail-label">Día</p>
+                  <p class="date-detail-value">Sábado 24 de octubre de 2026</p>
+                </div>
+              </div>
+              <div class="date-detail-row">
+                <span class="date-detail-icon">⏰</span>
+                <div>
+                  <p class="date-detail-label">Hora</p>
+                  <p class="date-detail-value">5:00 p. m.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="action-btn" id="btn-calendar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/></svg>
+            Agregar al Calendario
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18" class="chevron"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+        </div>
+      </section>
+
+      <!-- UBICACIONES -->
+      <section class="card reveal" id="location-section">
+        <div class="card-icon-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" width="24" height="24"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="card-inner">
+          <h3 class="card-title with-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" style="color:var(--accent)"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+            Ubicaciones
+          </h3>
+
+          <div class="loc-cards">
+
+            <!-- Lugar 1 -->
+            <div class="loc-card">
+              <div class="loc-card-header">
+                <span class="loc-badge">1</span>
+                <div>
+                  <p class="loc-event-name">⚽️ BAL⚽️NAZO FEST</p>
+                  <p class="loc-event-sub">Fiesta principal</p>
+                </div>
+              </div>
+              <div class="loc-card-body">
+                <div class="loc-info-row">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" style="color:var(--accent);flex-shrink:0"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+                  <p class="loc-address">Tlatilco 9, Sta Catarina, Tláhuac, 13120 Santa Catarina Yecahuitzotl, CDMX</p>
+                </div>
+                <div class="loc-info-row">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" style="color:var(--accent);flex-shrink:0"><path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="10"/></svg>
+                  <p class="loc-address">5:00 p.m.</p>
+                </div>
+              </div>
+              <a class="action-btn map-btn" href="https://maps.google.com/?q=Tlatilco+9+Santa+Catarina+Tlahuac+CDMX" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/></svg>
+                Ver en Google Maps
+              </a>
+            </div>
+
+            <!-- Divisor -->
+            <div class="loc-divider">
+              <div class="loc-divider-line"></div>
+              <span class="loc-divider-icon">⚽️</span>
+              <div class="loc-divider-line"></div>
+            </div>
+
+            <!-- Lugar 2 -->
+            <div class="loc-card">
+              <div class="loc-card-header">
+                <span class="loc-badge">2</span>
+                <div>
+                  <p class="loc-event-name">⛪ Misa de Agradecimiento</p>
+                  <p class="loc-event-sub">Primer año de Arturo &mdash; 4:00 p.m.</p>
+                </div>
+              </div>
+              <div class="loc-card-body">
+                <div class="loc-info-row">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" style="color:var(--accent);flex-shrink:0"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                  <p class="loc-address" style="font-weight:600">Proyecto Salesiano Chavos de Don Bosco</p>
+                </div>
+                <div class="loc-info-row">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" style="color:var(--accent);flex-shrink:0"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+                  <p class="loc-address">Tlalalcoyococ 70, La Guadalupe, Tláhuac, 13100 Santa Catarina Yecahuitzotl, CDMX</p>
+                </div>
+              </div>
+              <a class="action-btn map-btn" href="https://maps.google.com/?q=Proyecto+Salesiano+Chavos+Don+Bosco+Tlahuac+CDMX" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"/><path d="M15 5.764v15"/><path d="M9 3.236v15"/></svg>
+                Ver en Google Maps
+              </a>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- RSVP -->
+      <section class="card reveal" id="rsvp-section">
+        <div class="card-icon-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" width="24" height="24"><path d="M22 13V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h8"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/><path d="m16 19 2 2 4-4"/></svg>
+        </div>
+        <div class="card-inner">
+          <h3 class="card-title with-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20" style="color:var(--accent)"><path d="M22 13V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v12c0 1.1.9 2 2 2h8"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/><path d="m16 19 2 2 4-4"/></svg>
+            Confirmar Asistencia
+          </h3>
+
+          <!-- PASO 1: ¿Asistirás? -->
+          <div id="rsvp-step-1">
+            <label class="rsvp-label">¿Asistirás? *</label>
+            <div class="rsvp-choices">
+              <button class="rsvp-choice" id="rsvp-yes" onclick="selectRsvp('yes')">
+                <div class="choice-icon">✓</div>
+                <span class="choice-text-sm">Sí</span>
+                <span class="choice-text-lg">Sí, asistiré</span>
+              </button>
+              <button class="rsvp-choice" id="rsvp-no" onclick="selectRsvp('no')">
+                <div class="choice-icon">✕</div>
+                <span class="choice-text-sm">No</span>
+                <span class="choice-text-lg">No podré asistir</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- PASO 2: Formulario -->
+          <div id="rsvp-fields" style="display:none">
+            <div class="rsvp-field-group">
+              <label class="rsvp-field-label">Tu Nombre *</label>
+              <input type="text" class="rsvp-input" id="rsvp-name" placeholder="Tu nombre completo">
+              <span class="rsvp-field-error" id="rsvp-name-error">El nombre es requerido</span>
+            </div>
+            <div class="rsvp-field-group">
+              <label class="rsvp-field-label">Tu Teléfono</label>
+              <input type="tel" class="rsvp-input" id="rsvp-phone" placeholder="10 dígitos">
+            </div>
+            <div class="rsvp-field-group">
+              <label class="rsvp-field-label">Tu Email <span style="color:var(--muted);font-weight:400">(Opcional)</span></label>
+              <input type="email" class="rsvp-input" id="rsvp-email" placeholder="correo@ejemplo.com">
+            </div>
+            <div class="rsvp-field-group">
+              <label class="rsvp-field-label">¿Cuántas personas asistirán? *</label>
+              <div class="rsvp-counter">
+                <button type="button" class="rsvp-counter-btn" id="rsvp-minus">−</button>
+                <span class="rsvp-counter-val" id="rsvp-guests">1</span>
+                <button type="button" class="rsvp-counter-btn" id="rsvp-plus">+</button>
+              </div>
+            </div>
+            <button class="action-btn submit-btn" onclick="submitRsvp()">Confirmar Asistencia</button>
+          </div>
+
+          <!-- PASO 3: Gracias + QR -->
+          <div id="rsvp-thanks" style="display:none">
+            <div class="rsvp-thanks-header">
+              <div class="rsvp-thanks-icon">🎉</div>
+              <h4 class="rsvp-thanks-title">¡Gracias por tu respuesta!</h4>
+              <p class="rsvp-thanks-sub">Hemos recibido tu confirmación.</p>
+            </div>
+            <div class="rsvp-qr-wrap">
+              <p class="rsvp-qr-label">Tu código QR</p>
+              <div class="rsvp-qr-box" id="rsvp-qr"></div>
+              <p class="rsvp-qr-hint">Muéstralo al llegar al evento para registrar tu asistencia.</p>
+              <p class="rsvp-qr-name" id="rsvp-qr-name"></p>
+            </div>
+            <div class="rsvp-share-btns">
+              <button class="rsvp-share-btn" onclick="shareQR()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+                Compartir
+              </button>
+              <button class="rsvp-share-btn" onclick="downloadQR()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Descargar PNG
+              </button>
+              <button class="rsvp-share-btn" onclick="window.print()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                Imprimir
+              </button>
+            </div>
+            <div class="rsvp-mural-wrap">
+              <p class="rsvp-mural-prompt">Tu confirmación quedó lista. ¿Le dejas unas palabras al mural?</p>
+              <a href="mural.html" class="action-btn" style="margin-top:.5rem;text-decoration:none">
+                🎨 Deja un mensaje bonito en el mural
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <footer class="inv-footer" id="footer-section">
+        <div class="footer-divider"></div>
+        <div class="footer-emoji">🏆</div>
+        <p class="footer-msg">¡A ganar todos juntos!</p>
+        <div class="footer-links">
+          <a href="mural.html" class="footer-link">🎨 Ver mural de mensajes</a>
+        </div>
+      </footer>
+
+    </div><!-- /content-wrap -->
+
+  </div><!-- /invitation -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>window.SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxiWrSIncHFQXSNikuo62WJKocpxh449YOUcodsPEFFKS3jAlmWEhj21KSuCGvI1t7vNw/exec';</script>
+  <audio id="bg-audio" loop preload="none">
+    <source src="audio/waka-waka.mp3.mpeg" type="audio/mpeg">
+  </audio>
+  <script src="app.js"></script>
+</body>
+</html>
