@@ -273,16 +273,24 @@
 
 </div>
 
+<script>window.SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxiWrSIncHFQXSNikuo62WJKocpxh449YOUcodsPEFFKS3jAlmWEhj21KSuCGvI1t7vNw/exec';</script>
 <script>
   // ── STORAGE ──────────────────────────────────────────────────
   const STORAGE_KEY = 'balnazo_asistentes';
+  let attendees = [];
 
-  function getAttendees() {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+  async function fetchAttendees() {
+    try {
+      const res  = await fetch(window.SHEETS_URL + '?tipo=registro', { redirect:'follow', mode:'cors' });
+      const data = await res.json();
+      attendees = Array.isArray(data) ? data : [];
+    } catch { attendees = []; }
+    updateStats();
+    renderList();
   }
-  function saveAttendees(list) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
-  }
+
+  function getAttendees() { return attendees; }
+  function saveAttendees(list) { attendees = list; }
 
   // ── STATS ────────────────────────────────────────────────────
   function updateStats() {
@@ -431,7 +439,7 @@
   // ── INIT ─────────────────────────────────────────────────────
   updateStats();
   renderList();
+  fetchAttendees();
 </script>
-<script>window.SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxiWrSIncHFQXSNikuo62WJKocpxh449YOUcodsPEFFKS3jAlmWEhj21KSuCGvI1t7vNw/exec';</script>
 </body>
 </html>
