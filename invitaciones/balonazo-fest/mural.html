@@ -278,7 +278,6 @@
       padding: 1rem 1.1rem .9rem;
       background: #fff;
       box-shadow: 0 0 0 2px var(--accent), 0 6px 24px rgba(0,0,0,.5);
-      display: none;
     }
     .compose-label {
       font-size: .65rem; font-weight: 700; letter-spacing: .1em;
@@ -462,6 +461,10 @@
 </head>
 <body>
 
+<div id="loading-screen">
+
+</div>
+
 <div id="flashes"></div>
 
 <div class="stadium-header">
@@ -511,10 +514,6 @@
   </div>
 </div>
 
-<div class="compose-wrap">
-  <div class="compose-card" id="compose-card"></div>
-</div>
-
 <div class="bottom-bar">
   <div class="bottom-inner">
     <a href="index.html" class="bar-back">← Invitación</a>
@@ -541,7 +540,7 @@
 </div>
 
 <!-- MODAL BIENVENIDA -->
-<div class="modal-overlay hidden" id="modal-overlay">
+<div class="modal-overlay" id="modal-overlay">
   <div class="modal-card">
     <div class="modal-header">
       <span class="modal-emoji">✍️</span>
@@ -734,6 +733,9 @@
   }
 
   function buildModalCompose() {
+  
+	document.getElementById('detail-overlay').classList.add('hidden');
+	
     const wrap = document.getElementById('modal-compose');
     wrap.style.background = selectedColor;
     wrap.style.borderRadius = '.75rem';
@@ -906,7 +908,7 @@
   }
 
   render();
-  openModal();
+  buildModalCompose();
   window.addEventListener('resize', render);
   console.log('SHEETS_URL:', window.SHEETS_URL);
 </script>
