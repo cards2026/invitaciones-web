@@ -552,6 +552,7 @@
   </div>
 </div>
 
+<script>window.SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxiWrSIncHFQXSNikuo62WJKocpxh449YOUcodsPEFFKS3jAlmWEhj21KSuCGvI1t7vNw/exec';</script>
 <script>
   const COLORS = ['#FFFFFF','#FEF9C3','#FCE7F3','#DBEAFE','#DCFCE7','#EDE9FE','#FFF7ED','#CFFAFE'];
   const STORAGE_KEY = 'balnazo_mural';
@@ -602,8 +603,28 @@
   }
 
   // ── STORAGE ───────────────────────────────────────────────────
-  function getMessages() { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
-  function saveMessages(l) { localStorage.setItem(STORAGE_KEY, JSON.stringify(l)); }
+  async function fetchMessages() {
+    if (!window.SHEETS_URL) return [];
+    try {
+      const res  = await fetch(window.SHEETS_URL + '?tipo=mural', {
+        redirect: 'follow',
+        mode: 'cors'
+      });
+      const data = await res.json();
+      console.log('fetch ok', data);
+      return Array.isArray(data) ? data : [];
+    } catch(err) {
+      console.error('fetch error', err);
+      return [];
+    }
+  }
+  async function saveMessage(entry) {
+    if (!window.SHEETS_URL) return;
+    await fetch(window.SHEETS_URL, {
+      method: 'POST',
+      body: JSON.stringify({ tipo: 'mural', ...entry })
+    }).catch(() => {});
+  }
 
   // ── MAKE CARD ─────────────────────────────────────────────────
   function makeCard(m, w, h, fs, fsa, lc, tilt, delay, side) {
@@ -766,13 +787,7 @@
       if (!msg) return;
       const nombre = ni.value.trim() || 'Anónimo';
       const entry  = { mensaje: msg, nombre, color: selectedColor, timestamp: Date.now() };
-      const list   = getMessages(); list.push(entry); saveMessages(list);
-      if (window.SHEETS_URL) {
-        fetch(window.SHEETS_URL, { method:'POST', body: JSON.stringify({ tipo:'mural', ...entry }) }).catch(()=>{});
-      }
-      closeModal();
-      render();
-      showToast();
+      saveMessage(entry).then(() => { closeModal(); render(); showToast(); });
     });
     footer.appendChild(btn);
 
@@ -781,18 +796,17 @@
   }
 
   // ── RENDER ────────────────────────────────────────────────────
-  function render() {
-    const list = getMessages().slice().reverse();
+  async function render() {
+    const list = await fetchMessages();
+    list.reverse();
     document.getElementById('empty-state').style.display =
       list.length === 0 ? 'block' : 'none';
-
     const sz = getSizes();
     let idx = 0;
     idx = fillHoriz('stand-north', list, idx, 'north', sz);
     idx = fillHoriz('stand-south', list, idx, 'south', sz);
     idx = fillSide('stand-west',  list, idx, 'west',  sz);
     idx = fillSide('stand-east',  list, idx, 'east',  sz);
-
     buildComposeCard();
   }
 
@@ -852,18 +866,15 @@
   }
 
   // ── SUBMIT ────────────────────────────────────────────────────
-  function submitMessage() {
+  async function submitMessage() {
     const ta  = document.querySelector('#compose-card textarea');
     const msg = ta ? ta.value.trim() : '';
     if (!msg) return;
     const nombre = document.getElementById('compose-name').value.trim() || 'Anónimo';
     const entry  = { mensaje: msg, nombre, color: selectedColor, timestamp: Date.now() };
-    const list   = getMessages(); list.push(entry); saveMessages(list);
-    if (window.SHEETS_URL) {
-      fetch(window.SHEETS_URL, { method:'POST', body: JSON.stringify({ tipo:'mural', ...entry }) }).catch(()=>{});
-    }
-    localStorage.removeItem('balnazo_mural_name');
-    render(); showToast();
+    await saveMessage(entry);
+    render();
+    showToast();
   }
 
   function shareUrl() {
@@ -896,7 +907,7 @@
   render();
   openModal();
   window.addEventListener('resize', render);
+  console.log('SHEETS_URL:', window.SHEETS_URL);
 </script>
-<script>window.SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxiWrSIncHFQXSNikuo62WJKocpxh449YOUcodsPEFFKS3jAlmWEhj21KSuCGvI1t7vNw/exec';</script>
 </body>
 </html>
