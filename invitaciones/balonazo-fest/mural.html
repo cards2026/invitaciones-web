@@ -278,7 +278,6 @@
       padding: 1rem 1.1rem .9rem;
       background: #fff;
       box-shadow: 0 0 0 2px var(--accent), 0 6px 24px rgba(0,0,0,.5);
-      display: none;
     }
     .compose-label {
       font-size: .65rem; font-weight: 700; letter-spacing: .1em;
@@ -727,7 +726,7 @@
   // ── MODAL ──────────────────────────────────────────────────
   function openModal() {
     buildModalCompose();
-    //document.getElementById('modal-overlay').classList.remove('hidden');
+    document.getElementById('modal-overlay').classList.remove('hidden');
   }
   function closeModal() {
     document.getElementById('modal-overlay').classList.add('hidden');
@@ -906,7 +905,8 @@
   }
 
   render();
-  openModal();
+  //openModal();
+  buildModalCompose();
   window.addEventListener('resize', render);
   console.log('SHEETS_URL:', window.SHEETS_URL);
 </script>
